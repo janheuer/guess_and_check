@@ -16,12 +16,17 @@ that is solved by clingo.
 It uses the meta-programming techniques introduced in:
 *	Martin Gebser, Roland Kaminski, Torsten Schaub: Complex optimization in answer set programming. TPLP 11(4-5): 821-839 (2011).
 
+## Installation
+
+```
+pip install .
+```
 
 ## Usage
 
 ```
-$ src/gc.py --help
-usage: gc.py [--binary] [--check-to-sat] [number] [options] [guess_files] -C [check_files]
+guess-and-check --help
+usage: guess-and-check [--binary] [--check-to-sat] [number] [options] [guess_files] -C [check_files]
 ```
 
 * Option `--binary` uses a clingo binary (which sould be installed in the system) for reifying the check program.
