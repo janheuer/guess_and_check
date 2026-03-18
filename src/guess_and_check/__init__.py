@@ -100,7 +100,9 @@ def get_prefix(control):
     return prefix
 
 
-def solve_guess_and_check(options, binary, toSat, guess_files, check_files) -> bool:
+def solve_guess_and_check(
+    options, binary, toSat, guess_files, check_files, on_model=None
+) -> bool:
     """
     Solve a guess and check program and return whether it is satisfiable.
     """
@@ -150,11 +152,13 @@ def solve_guess_and_check(options, binary, toSat, guess_files, check_files) -> b
 
     # solve
     models = 0
-    with control.solve(yield_=True) as handle:
+    with control.solve(yield_=True, on_model=on_model) as handle:
         for m in handle:
             models += 1
-            model = " ".join([str(x) for x in m.symbols(shown=True)])
-            print(ANSWER.format(models, model))
-        print(handle.get())
+            if not on_model:
+                model = " ".join([str(x) for x in m.symbols(shown=True)])
+                print(ANSWER.format(models, model))
+        if not on_model:
+            print(handle.get())
 
     return models > 0
